@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sls.dao.PaperDao">
+  <resultMap id="BaseResultMap" type="com.sls.vo.Paper">
+    <id column="paper_id" jdbcType="INTEGER" property="paperId" />
+    <result column="paper_user_id" jdbcType="VARCHAR" property="paperUserId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="paper_time" jdbcType="VARCHAR" property="paperTime" />
+    <result column="paper_name" jdbcType="VARCHAR" property="paperName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    paper_id, paper_user_id, course_id, paper_time, paper_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from table_paper
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from table_paper
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sls.vo.Paper">
+    insert into table_paper (paper_id, paper_user_id, course_id, 
+      paper_time, paper_name)
+    values (#{paperId,jdbcType=INTEGER}, #{paperUserId,jdbcType=VARCHAR}, #{courseId,jdbcType=INTEGER}, 
+      #{paperTime,jdbcType=VARCHAR}, #{paperName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sls.vo.Paper">
+    insert into table_paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
+        paper_id,
+      </if>
+      <if test="paperUserId != null">
+        paper_user_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="paperTime != null">
+        paper_time,
+      </if>
+      <if test="paperName != null">
+        paper_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
+        #{paperId,jdbcType=INTEGER},
+      </if>
+      <if test="paperUserId != null">
+        #{paperUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="paperTime != null">
+        #{paperTime,jdbcType=VARCHAR},
+      </if>
+      <if test="paperName != null">
+        #{paperName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sls.vo.Paper">
+    update table_paper
+    <set>
+      <if test="paperUserId != null">
+        paper_user_id = #{paperUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="paperTime != null">
+        paper_time = #{paperTime,jdbcType=VARCHAR},
+      </if>
+      <if test="paperName != null">
+        paper_name = #{paperName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sls.vo.Paper">
+    update table_paper
+    set paper_user_id = #{paperUserId,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=INTEGER},
+      paper_time = #{paperTime,jdbcType=VARCHAR},
+      paper_name = #{paperName,jdbcType=VARCHAR}
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </update>
+</mapper>

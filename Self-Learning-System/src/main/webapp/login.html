@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>login.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+  </head>
+  
+  <body>
+    <form id="login" method="post">
+	    用户名：<input type="text"  id="userId"><br>
+	    密  码：<input type="text"  id="userPassword"><br>
+	    <input type="button" value="登录" id="btn">
+	</form>
+	
+	<script type="text/javascript">
+		$("#btn").click(function(){
+				$.post("login",{userId:$("#userId").val(),userPassword:$("#userPassword").val()},function(data){
+					
+						console.log(data)
+					})
+				})
+	
+	</script>
+  </body>
+</html>
