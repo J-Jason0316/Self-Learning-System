@@ -16,6 +16,15 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	
 	/**
+	 * 获取所有question
+	 * @param 
+	 * @return list
+	 * */
+	public List<Question> getAllQuestion() {
+		return  questionDao.selectAllQuestion();
+	}
+	
+	/**
 	 * 根据主键获取question
 	 * @param questionId
 	 * @return Question

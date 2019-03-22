@@ -9,6 +9,12 @@ public interface QuestionService {
 	/******************************************************************
 	 * 							题目查询                                                       *
 	 * ****************************************************************/
+	/**
+	 * 获取所有question
+	 * @param 
+	 * @return list
+	 * */
+	List<Question> getAllQuestion();
 	
 	/**
 	 * 根据主键获取question

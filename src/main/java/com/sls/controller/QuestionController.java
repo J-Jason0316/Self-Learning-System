@@ -32,6 +32,28 @@ public class QuestionController {
 	}
 	
 	/**
+	 * 获取所有question
+	 * @param 
+	 * @return list
+	 * */
+	@RequestMapping(value = "/getAllQuestion", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject getAllQuestion() {
+		
+		JSONObject jsonObject = initSetting();
+   
+		List<Question> questionList = questionService.getAllQuestion();
+        
+		if (questionList.size() != 0) {
+        	jsonObject.put("data", questionList);  	
+		} else {
+			jsonObject.put("code", 1);
+			jsonObject.put("msg", "error");
+		}
+        return jsonObject;
+	}
+	
+	/**
 	 * 根据主键获取question
 	 * @param questionId int
 	 * @return Question

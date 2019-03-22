@@ -18,6 +18,8 @@ public interface QuestionDao {
     int updateByPrimaryKey(Question record);
     
     /*************************************/
+    List<Question> selectAllQuestion();
+    
     List<Question> selectByQuestionUserId(String questionUserId);
     
     List<Question> selectByQuestionCourseId(int courseId);
