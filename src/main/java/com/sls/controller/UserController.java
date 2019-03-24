@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sls.service.UserService;
+import com.sls.util.ReturnDataInit;
 import com.sls.vo.User;
 
 @Controller
@@ -19,6 +20,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService	userService;
+	@Autowired
+	private	ReturnDataInit returnDataInit;
 
 	/**
 	 * 用户登录API
@@ -26,15 +29,11 @@ public class UserController {
 	 * @return JSONObject
 	 * 
 	 * */
-	
-	@ResponseBody
 	@RequestMapping(value = "/login" , method = RequestMethod.POST)
+	@ResponseBody
 	public JSONObject userLogin(@RequestBody User user, HttpServletRequest req) {
 		
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("code", 0);
-        jsonObject.put("data", null);
-        jsonObject.put("msg", null);
+		JSONObject jsonObject = returnDataInit.initSetting();
         
 		User u = userService.userLogin(user.getUserId());
 		//判断用户是否存在
@@ -62,14 +61,16 @@ public class UserController {
 	 * 用户登录状态检查
 	 * @param null
 	 * @return boolean
-	 * */
-	
-	public boolean userLoginCheck(HttpServletRequest req) {
+	 * */	
+	@RequestMapping(value = "/loginStatus" , method = RequestMethod.GET)
+	public boolean userLoginCheck(HttpServletRequest req) {		
+		
 		User user = (User)req.getSession().getAttribute("user");
+		
+		boolean status = false; 
 		if (user != null) {
-			return true;
-		} else {
-			return false;
+			return status = true;
 		}	
+		return status;
 	}
 }

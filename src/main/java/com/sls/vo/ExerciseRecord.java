@@ -2,12 +2,15 @@ package com.sls.vo;
 
 import java.util.Date;
 
+
+
+
 public class ExerciseRecord {
     private Integer recordId;
 
     private String recordUserId;
 
-    private Integer quertionId;
+    private Integer questionId;
 
     private String recordAnswer;
 
@@ -30,15 +33,15 @@ public class ExerciseRecord {
     public void setRecordUserId(String recordUserId) {
         this.recordUserId = recordUserId == null ? null : recordUserId.trim();
     }
+    
+	public Integer getQuestionId() {
+		return questionId;
+	}
 
-    public Integer getQuertionId() {
-        return quertionId;
-    }
-
-    public void setQuertionId(Integer quertionId) {
-        this.quertionId = quertionId;
-    }
-
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
+	}
+   
     public String getRecordAnswer() {
         return recordAnswer;
     }

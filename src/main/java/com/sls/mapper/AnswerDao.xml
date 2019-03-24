@@ -1,82 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sls.dao.AnswerDao">
-  <resultMap id="BaseResultMap" type="com.sls.vo.Answer">
-    <id column="answer_id" jdbcType="INTEGER" property="answerId" />
-    <result column="answer_user_id" jdbcType="VARCHAR" property="answerUserId" />
-    <result column="paper_id" jdbcType="INTEGER" property="paperId" />
-    <result column="answer_score" jdbcType="VARCHAR" property="answerScore" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    answer_id, answer_user_id, paper_id, answer_score
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from table_answer
-    where answer_id = #{answerId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from table_answer
-    where answer_id = #{answerId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.sls.vo.Answer">
-    insert into table_answer (answer_id, answer_user_id, paper_id, 
-      answer_score)
-    values (#{answerId,jdbcType=INTEGER}, #{answerUserId,jdbcType=VARCHAR}, #{paperId,jdbcType=INTEGER}, 
-      #{answerScore,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.sls.vo.Answer">
-    insert into table_answer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="answerId != null">
-        answer_id,
-      </if>
-      <if test="answerUserId != null">
-        answer_user_id,
-      </if>
-      <if test="paperId != null">
-        paper_id,
-      </if>
-      <if test="answerScore != null">
-        answer_score,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="answerId != null">
-        #{answerId,jdbcType=INTEGER},
-      </if>
-      <if test="answerUserId != null">
-        #{answerUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="paperId != null">
-        #{paperId,jdbcType=INTEGER},
-      </if>
-      <if test="answerScore != null">
-        #{answerScore,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sls.vo.Answer">
-    update table_answer
-    <set>
-      <if test="answerUserId != null">
-        answer_user_id = #{answerUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="paperId != null">
-        paper_id = #{paperId,jdbcType=INTEGER},
-      </if>
-      <if test="answerScore != null">
-        answer_score = #{answerScore,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where answer_id = #{answerId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.sls.vo.Answer">
-    update table_answer
-    set answer_user_id = #{answerUserId,jdbcType=VARCHAR},
-      paper_id = #{paperId,jdbcType=INTEGER},
-      answer_score = #{answerScore,jdbcType=VARCHAR}
-    where answer_id = #{answerId,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.sls.vo.Answer">
+		<id column="answer_id" jdbcType="INTEGER" property="answerId" />
+		<result column="answer_user_id" jdbcType="VARCHAR" property="answerUserId" />
+		<result column="paper_id" jdbcType="INTEGER" property="paperId" />
+		<result column="answer_score" jdbcType="VARCHAR" property="answerScore" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		answer_id, answer_user_id, paper_id, answer_score
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from table_answer
+		where answer_id = #{answerId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		table_answer
+		where answer_id = #{answerId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.sls.vo.Answer">
+		insert into table_answer
+		(answer_id, answer_user_id, paper_id,
+		answer_score)
+		values
+		(#{answerId,jdbcType=INTEGER}, #{answerUserId,jdbcType=VARCHAR},
+		#{paperId,jdbcType=INTEGER},
+		#{answerScore,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sls.vo.Answer">
+		insert into table_answer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="answerId != null">
+				answer_id,
+			</if>
+			<if test="answerUserId != null">
+				answer_user_id,
+			</if>
+			<if test="paperId != null">
+				paper_id,
+			</if>
+			<if test="answerScore != null">
+				answer_score,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="answerId != null">
+				#{answerId,jdbcType=INTEGER},
+			</if>
+			<if test="answerUserId != null">
+				#{answerUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="paperId != null">
+				#{paperId,jdbcType=INTEGER},
+			</if>
+			<if test="answerScore != null">
+				#{answerScore,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sls.vo.Answer">
+		update table_answer
+		<set>
+			<if test="answerUserId != null">
+				answer_user_id = #{answerUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="paperId != null">
+				paper_id = #{paperId,jdbcType=INTEGER},
+			</if>
+			<if test="answerScore != null">
+				answer_score = #{answerScore,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where answer_id = #{answerId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sls.vo.Answer">
+		update
+		table_answer
+		set answer_user_id = #{answerUserId,jdbcType=VARCHAR},
+		paper_id = #{paperId,jdbcType=INTEGER},
+		answer_score =
+		#{answerScore,jdbcType=VARCHAR}
+		where answer_id =
+		#{answerId,jdbcType=INTEGER}
+	</update>
+
+	<!-- ****************************************************** -->
+	<select id="selectByAnswerUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from table_answer
+		where answer_user_id =
+		#{AnswerUserId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 将answer下的answerDetail这个List存入 table_paper_detail表中 -->
+	<insert id="insertAnswerDetail" parameterType="java.util.List">
+		INSERT INTO table_answer_detail
+		(answer_id,question_id,answer)
+		VALUES
+		<foreach collection="list" item="answerDetail" index="index"
+			separator=",">
+			(
+			#{answerDetail.answerId, jdbcType=INTEGER},
+			#{answerDetail.questionId, jdbcType=INTEGER},
+			#{answerDetail.answer, jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
 </mapper>

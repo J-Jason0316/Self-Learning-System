@@ -7,7 +7,12 @@ public class AnswerDetail {
 
     private String answer;
 
-    public Integer getAnswerId() {
+    @Override
+	public String toString() {
+		return "AnswerDetail [answerId=" + answerId + ", questionId=" + questionId + ", answer=" + answer + "]";
+	}
+
+	public Integer getAnswerId() {
         return answerId;
     }
 

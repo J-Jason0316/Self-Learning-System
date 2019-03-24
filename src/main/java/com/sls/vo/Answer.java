@@ -1,5 +1,7 @@
 package com.sls.vo;
 
+import java.util.List;
+
 public class Answer {
     private Integer answerId;
 
@@ -8,8 +10,25 @@ public class Answer {
     private Integer paperId;
 
     private String answerScore;
+    
+    private List<AnswerDetail> answerDetail;
+    
 
-    public Integer getAnswerId() {
+    @Override
+	public String toString() {
+		return "Answer [answerId=" + answerId + ", answerUserId=" + answerUserId + ", paperId=" + paperId
+				+ ", answerScore=" + answerScore + ", answerDetail=" + answerDetail + "]";
+	}
+
+	public List<AnswerDetail> getAnswerDetail() {
+		return answerDetail;
+	}
+
+	public void setAnswerDetail(List<AnswerDetail> answerDetail) {
+		this.answerDetail = answerDetail;
+	}
+
+	public Integer getAnswerId() {
         return answerId;
     }
 

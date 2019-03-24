@@ -58,6 +58,7 @@
 					<list>
 						<value>WriteMapNullValue</value>
 						<value>QuoteFieldNames</value>
+						<value>WriteDateUseDateFormat</value>
 					</list>
 				</property>
 			</bean>

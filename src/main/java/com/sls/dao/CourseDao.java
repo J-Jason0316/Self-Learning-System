@@ -1,5 +1,7 @@
 package com.sls.dao;
 
+import java.util.List;
+
 import com.sls.vo.Course;
 
 public interface CourseDao {
@@ -14,4 +16,7 @@ public interface CourseDao {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+    
+   /*****************************/
+    List<Course> selectAllCourse();
 }

@@ -4,13 +4,13 @@
   <resultMap id="BaseResultMap" type="com.sls.vo.ExerciseRecord">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="record_user_id" jdbcType="VARCHAR" property="recordUserId" />
-    <result column="quertion_id" jdbcType="INTEGER" property="quertionId" />
+    <result column="question_id" jdbcType="INTEGER" property="questionId" />
     <result column="record_answer" jdbcType="VARCHAR" property="recordAnswer" />
     <result column="record_type" jdbcType="INTEGER" property="recordType" />
     <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, record_user_id, quertion_id, record_answer, record_type, record_time
+    record_id, record_user_id, question_id, record_answer, record_type, record_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,10 +23,10 @@
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.sls.vo.ExerciseRecord">
-    insert into table_exercise_record (record_id, record_user_id, quertion_id, 
+    insert into table_exercise_record (record_id, record_user_id, question_id, 
       record_answer, record_type, record_time
       )
-    values (#{recordId,jdbcType=INTEGER}, #{recordUserId,jdbcType=VARCHAR}, #{quertionId,jdbcType=INTEGER}, 
+    values (#{recordId,jdbcType=INTEGER}, #{recordUserId,jdbcType=VARCHAR}, #{questionId,jdbcType=INTEGER}, 
       #{recordAnswer,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -39,8 +39,8 @@
       <if test="recordUserId != null">
         record_user_id,
       </if>
-      <if test="quertionId != null">
-        quertion_id,
+      <if test="questionId != null">
+        question_id,
       </if>
       <if test="recordAnswer != null">
         record_answer,
@@ -59,8 +59,8 @@
       <if test="recordUserId != null">
         #{recordUserId,jdbcType=VARCHAR},
       </if>
-      <if test="quertionId != null">
-        #{quertionId,jdbcType=INTEGER},
+      <if test="questionId != null">
+        #{questionId,jdbcType=INTEGER},
       </if>
       <if test="recordAnswer != null">
         #{recordAnswer,jdbcType=VARCHAR},
@@ -79,8 +79,8 @@
       <if test="recordUserId != null">
         record_user_id = #{recordUserId,jdbcType=VARCHAR},
       </if>
-      <if test="quertionId != null">
-        quertion_id = #{quertionId,jdbcType=INTEGER},
+      <if test="questionId != null">
+        question_id = #{questionId,jdbcType=INTEGER},
       </if>
       <if test="recordAnswer != null">
         record_answer = #{recordAnswer,jdbcType=VARCHAR},
@@ -97,10 +97,17 @@
   <update id="updateByPrimaryKey" parameterType="com.sls.vo.ExerciseRecord">
     update table_exercise_record
     set record_user_id = #{recordUserId,jdbcType=VARCHAR},
-      quertion_id = #{quertionId,jdbcType=INTEGER},
+      question_id = #{questionId,jdbcType=INTEGER},
       record_answer = #{recordAnswer,jdbcType=VARCHAR},
       record_type = #{recordType,jdbcType=INTEGER},
       record_time = #{recordTime,jdbcType=TIMESTAMP}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByRecordUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from table_exercise_record
+    where record_user_id = #{RecordUserId,jdbcType=VARCHAR}
+  </select>
 </mapper>

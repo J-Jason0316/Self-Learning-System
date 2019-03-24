@@ -1,5 +1,7 @@
 package com.sls.vo;
 
+import java.util.List;
+
 public class Paper {
     private Integer paperId;
 
@@ -10,8 +12,12 @@ public class Paper {
     private String paperTime;
 
     private String paperName;
+    
+    private List<PaperDetail> paperDetail;
+    
+    private List<Question> question;
 
-    public Integer getPaperId() {
+	public Integer getPaperId() {
         return paperId;
     }
 
@@ -50,4 +56,20 @@ public class Paper {
     public void setPaperName(String paperName) {
         this.paperName = paperName == null ? null : paperName.trim();
     }
+
+	public List<PaperDetail> getPaperDetail() {
+		return paperDetail;
+	}
+
+	public void setPaperDetail(List<PaperDetail> paperDetail) {
+		this.paperDetail = paperDetail;
+	}
+
+	public List<Question> getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(List<Question> question) {
+		this.question = question;
+	}
 }

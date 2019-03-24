@@ -1,5 +1,7 @@
 package com.sls.dao;
 
+import java.util.List;
+
 import com.sls.vo.ExerciseRecord;
 
 public interface ExerciseRecordDao {
@@ -14,4 +16,7 @@ public interface ExerciseRecordDao {
     int updateByPrimaryKeySelective(ExerciseRecord record);
 
     int updateByPrimaryKey(ExerciseRecord record);
+    
+   /* ***********************************/
+    List<ExerciseRecord> selectByRecordUserId(String recordUserId);
 }

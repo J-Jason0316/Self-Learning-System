@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sls.service.QuestionService;
+import com.sls.util.ReturnDataInit;
 import com.sls.vo.Question;
 
 @Controller
@@ -18,18 +19,8 @@ import com.sls.vo.Question;
 public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
-	/******************************************************************
-	 * 							题目查询                                                       *
-	 * ****************************************************************/
-	
-	public JSONObject initSetting() {
-		
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("code", 0);
-        jsonObject.put("data", null);
-        jsonObject.put("msg", "success");
-        return jsonObject;
-	}
+	@Autowired
+	private	ReturnDataInit returnDataInit;
 	
 	/**
 	 * 获取所有question
@@ -40,7 +31,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject getAllQuestion() {
 		
-		JSONObject jsonObject = initSetting();
+		JSONObject jsonObject = returnDataInit.initSetting();
    
 		List<Question> questionList = questionService.getAllQuestion();
         
@@ -62,7 +53,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject getQuestionByQuestionId(int questionId) {
 		
-		JSONObject jsonObject = initSetting();
+		JSONObject jsonObject = returnDataInit.initSetting();
    
         Question question = questionService.selectByPrimaryKey(questionId);
         
@@ -85,7 +76,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject getQuestionByQuestionUserId(String questionUserId) {
 		
-		JSONObject jsonObject = initSetting();       
+		JSONObject jsonObject = returnDataInit.initSetting();       
         
         List<Question> questionList = questionService.getQuestionByQuestionUserId(questionUserId);
         
@@ -107,7 +98,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject getQuestionByCourseId(int courseId) {
 		
-		JSONObject jsonObject = initSetting();      
+		JSONObject jsonObject = returnDataInit.initSetting();      
         
         List<Question> questionList = questionService.getQuestionByCourseId(courseId);
         
@@ -129,7 +120,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject getQuestionByQuestionType(int questionType) {
 		
-		JSONObject jsonObject = initSetting();       
+		JSONObject jsonObject = returnDataInit.initSetting();       
         
         List<Question> questionList = questionService.getQuestionByQuestionType(questionType);
         
@@ -151,7 +142,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject getQuestionByQuestionHard(int questionHard) {
 		
-		JSONObject jsonObject = initSetting();        
+		JSONObject jsonObject = returnDataInit.initSetting();        
         
         List<Question> questionList = questionService.getQuestionByQuestionHard(questionHard);
         
@@ -173,7 +164,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject getQuestionByOtherCondition(@RequestBody Question question) {
 		
-		JSONObject jsonObject = initSetting();        
+		JSONObject jsonObject = returnDataInit.initSetting();        
         
         List<Question> questionList = questionService.getQuestionByOtherCondition(question);
         
@@ -186,10 +177,6 @@ public class QuestionController {
         return jsonObject;
 	}
 	
-	/******************************************************************
-	 * 							题目添加                                                       *
-	 * ****************************************************************/
-	
 	/**
 	 * 添加question
 	 * @param question Question
@@ -199,7 +186,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject insertQuestion(@RequestBody Question question) {
 		
-		JSONObject jsonObject = initSetting();       
+		JSONObject jsonObject = returnDataInit.initSetting();       
         
         int status = questionService.insertQuestion(question);
         System.out.println(status);
@@ -219,7 +206,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject updateQuestion(@RequestBody Question question) {
 		
-		JSONObject jsonObject = initSetting();       
+		JSONObject jsonObject = returnDataInit.initSetting();       
         
         int status = questionService.updateQuestion(question);
         
@@ -239,7 +226,7 @@ public class QuestionController {
 	@ResponseBody
 	public JSONObject deleteQuestion( int questionId) {
 		
-		JSONObject jsonObject = initSetting();       
+		JSONObject jsonObject = returnDataInit.initSetting();       
         
         int status = questionService.deleteQuestion(questionId);
         

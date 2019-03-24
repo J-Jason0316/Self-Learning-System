@@ -1,6 +1,9 @@
 package com.sls.dao;
 
+import java.util.List;
+
 import com.sls.vo.Paper;
+import com.sls.vo.PaperDetail;
 
 public interface PaperDao {
     int deleteByPrimaryKey(Integer paperId);
@@ -14,4 +17,15 @@ public interface PaperDao {
     int updateByPrimaryKeySelective(Paper record);
 
     int updateByPrimaryKey(Paper record);
+    /************************************************/
+    
+    List<Paper> selectByOtherCondition(Paper record);
+    
+    List<Paper> selectAllPaper();
+    
+    List<Paper> selectAllPaperAndDetail(int paperId);
+    
+    int insertPaperDetail(List<PaperDetail> paperDetailList);
+    
+    
 }

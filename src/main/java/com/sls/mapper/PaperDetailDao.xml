@@ -28,4 +28,10 @@
       </if>
     </trim>
   </insert>
+  
+  <!-- ****************************************** -->
+  <select id="selectAllPaperDetail" 
+		resultMap="BaseResultMap">
+		select * from table_paper_detail
+	</select>
 </mapper>
