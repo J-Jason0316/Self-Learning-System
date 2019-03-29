@@ -19,6 +19,8 @@ public interface PaperDao {
     int updateByPrimaryKey(Paper record);
     /************************************************/
     
+    int deleteByBatch(int[] paperId);
+    
     List<Paper> selectByOtherCondition(Paper record);
     
     List<Paper> selectAllPaper();

@@ -29,15 +29,24 @@ public class UserController {
 	 * @return JSONObject
 	 * 
 	 * */
+	@SuppressWarnings("unused")
 	@RequestMapping(value = "/login" , method = RequestMethod.POST)
 	@ResponseBody
-	public JSONObject userLogin(@RequestBody User user, HttpServletRequest req) {
+	public JSONObject login(@RequestBody User user,HttpServletRequest req) {
+		
+		System.out.println(user.getUserId());
 		
 		JSONObject jsonObject = returnDataInit.initSetting();
         
 		User u = userService.userLogin(user.getUserId());
+		
+		System.out.println(u.getUserPassword());
 		//判断用户是否存在
-		if(u != null) {
+		if(u == null) {
+			jsonObject.put("code", 1);
+			jsonObject.put("msg", "密码输入错误，请重试");
+			
+		} else{
 			//密码比对
 			if(user.getUserPassword().equals(u.getUserPassword())) {
 				req.getSession().setAttribute("user", u);
@@ -48,12 +57,8 @@ public class UserController {
 				jsonObject.put("code", 1);
 				jsonObject.put("msg", "密码输入错误，请重试");
 			}
-			
-		} else {
-			jsonObject.put("code", 1);
-			jsonObject.put("msg", "该账户不存在，您可以尝试注册");
 		}
-
+		
 		return jsonObject;
 	}
 	
@@ -62,15 +67,40 @@ public class UserController {
 	 * @param null
 	 * @return boolean
 	 * */	
-	@RequestMapping(value = "/loginStatus" , method = RequestMethod.GET)
-	public boolean userLoginCheck(HttpServletRequest req) {		
+//	@RequestMapping(value = "/loginStatus" , method = RequestMethod.GET)
+//	public boolean userLoginCheck(HttpServletRequest req) {		
+//		
+//		User user = (User)req.getSession().getAttribute("user");
+//		
+//		boolean status = false; 
+//		if (user != null) {
+//			return status = true;
+//		}	
+//		return status;
+//	}
+	
+	/**
+	 * 注销用户
+	 * @param null
+	 * @return boolean
+	 * */
+	@RequestMapping(value = "/logout" , method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject userLogoutCheck(HttpServletRequest req) {	
 		
-		User user = (User)req.getSession().getAttribute("user");
+		JSONObject jsonObject = returnDataInit.initSetting();
 		
-		boolean status = false; 
-		if (user != null) {
-			return status = true;
-		}	
-		return status;
+		boolean status = false;
+		try {
+			req.getSession().removeAttribute("user");
+			status = true;
+			jsonObject.put("status",status);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		jsonObject.put("status",status);
+		System.out.println(jsonObject);
+		return jsonObject;
 	}
+	
 }

@@ -29,4 +29,10 @@ public interface QuestionDao {
     List<Question> selectByQuestionHard(int questionHard);
     //多条件查询
     List<Question> selectByOtherCondition(Question record);
+    
+    List<Question> selectByOtherCondition2(Question record);
+    //批量删除
+    int deleteQuestionByBatch(int[] questionId);
+    //获取该试卷还没有使用的题
+    List<Question> getAllUnchoiceQuestion(int paperId);
 }

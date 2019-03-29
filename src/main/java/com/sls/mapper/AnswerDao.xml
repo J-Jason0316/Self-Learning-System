@@ -32,7 +32,11 @@
 		#{answerScore,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.sls.vo.Answer">
-		insert into table_answer
+		<selectKey keyProperty="answerId" resultType="int">
+      		select LAST_INSERT_ID()
+    	</selectKey>
+		
+		insert into table_answer 
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="answerId != null">
 				answer_id,
@@ -89,13 +93,28 @@
 	</update>
 
 	<!-- ****************************************************** -->
+
+	<resultMap id="customResultMap" type="com.sls.vo.Answer">
+		<id column="answer_id" jdbcType="INTEGER" property="answerId" />
+		<result column="answer_user_id" jdbcType="VARCHAR" property="answerUserId" />
+		<result column="paper_id" jdbcType="INTEGER" property="paperId" />
+		<result column="paper_name" jdbcType="VARCHAR" property="paperName" />
+		<result column="answer_score" jdbcType="VARCHAR" property="answerScore" />
+	</resultMap>
 	<select id="selectByAnswerUserId" parameterType="java.lang.String"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from table_answer
-		where answer_user_id =
-		#{AnswerUserId,jdbcType=VARCHAR}
+		resultMap="customResultMap">
+		SELECT
+			table_answer.answer_id,
+			table_answer.answer_user_id,
+			table_answer.paper_id,
+			table_answer.answer_score,
+			table_paper.paper_name
+		FROM
+			table_answer ,
+			table_paper
+		WHERE
+			table_answer.paper_id = table_paper.paper_id
+			AND table_answer.answer_user_id=#{AnswerUserId,jdbcType=VARCHAR}
 	</select>
 
 	<!-- 将answer下的answerDetail这个List存入 table_paper_detail表中 -->
@@ -108,9 +127,51 @@
 			(
 			#{answerDetail.answerId, jdbcType=INTEGER},
 			#{answerDetail.questionId, jdbcType=INTEGER},
-			#{answerDetail.answer, jdbcType=VARCHAR}
+			#{answerDetail.answer,jdbcType=VARCHAR}
 			)
 		</foreach>
 	</insert>
 
+
+	<!-- 根据传来的答卷计算该答卷的成绩 -->
+	
+	<select id="getScore" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			table_answer_detail ,
+			table_question ,
+			table_answer
+		WHERE
+			table_answer_detail.answer_id = table_answer.answer_id AND
+			table_answer_detail.question_id = table_question.question_id AND
+			table_answer_detail.answer = table_question.question_answer 
+			AND table_answer_detail.answer_id = #{answerId}
+	</select>
+	
+	
+	<!-- 插入成绩 -->
+<!-- 	<insert id="insertScore" parameterType="com.sls.vo.Answer">
+		INSERT INTO table_answer
+		(answer_score)
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="answerScore != null">
+				#{answerScore,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		
+	</insert> -->
+	
+	
+		<select id="isHaveAnswer" parameterType="com.sls.vo.Answer"
+		resultType="java.lang.String">
+		SELECT
+			table_answer.answer_id
+		FROM
+			table_answer
+		WHERE
+			table_answer.answer_user_id = #{answerUserId} AND
+			table_answer.paper_id = #{paperId}			
+	</select>
 </mapper>

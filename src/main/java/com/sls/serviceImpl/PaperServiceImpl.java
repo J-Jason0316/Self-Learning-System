@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sls.dao.PaperDao;
+import com.sls.dao.PaperDetailDao;
 import com.sls.service.PaperService;
 import com.sls.vo.Paper;
 
@@ -15,6 +16,8 @@ public class PaperServiceImpl implements PaperService {
 	
 	@Autowired
 	private PaperDao paperDao;
+	@Autowired 
+	private PaperDetailDao paperDetailDao;
 	
 	/**
 	 * 获取所有Paper
@@ -26,12 +29,23 @@ public class PaperServiceImpl implements PaperService {
 	};
 	
 	/**
-	 * 删除paper
+	 * 根据paperId删除paper
 	 * @param paperId
 	 * @return int
 	 * */	
+	@Transactional
 	public int deletePaper(int paperId){
+		paperDetailDao.deletePaperDetailByPaperId(paperId);
 		 return paperDao.deleteByPrimaryKey(paperId);
+	 }
+	
+	/**
+	 * 批量删除paper
+	 * @param paperId
+	 * @return int
+	 * */
+	public int deletePaper(int[] paperId){
+		 return paperDao.deleteByBatch(paperId);
 	 }
 
 	/**
@@ -48,9 +62,8 @@ public class PaperServiceImpl implements PaperService {
 	 * @param paper
 	 * @return int
 	 * */
-	@Transactional
 	public int insertPaper(Paper paper){
-		paperDao.insertPaperDetail(paper.getPaperDetail());
+		//paperDao.insertPaperDetail(paper.getPaperDetail());
 		return paperDao.insertSelective(paper);
 		
 	}

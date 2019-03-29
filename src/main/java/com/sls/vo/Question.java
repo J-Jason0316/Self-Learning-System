@@ -4,8 +4,12 @@ public class Question {
     private Integer questionId;
 
     private String questionUserId;
+    
+    private String questionUserName;
 
     private Integer courseId;
+    
+    private String courseName;
 
     private String questionInfo;
 
@@ -22,6 +26,8 @@ public class Question {
     private Integer questionType;
 
     private Integer questionHard;
+    
+  
 
     public Integer getQuestionId() {
         return questionId;
@@ -118,6 +124,22 @@ public class Question {
 				+ questionChoiceB + ", questionChoiceC=" + questionChoiceC + ", questionChoiceD=" + questionChoiceD
 				+ ", questionAnswer=" + questionAnswer + ", questionType=" + questionType + ", questionHard="
 				+ questionHard + "]";
+	}
+
+	public String getQuestionUserName() {
+		return questionUserName;
+	}
+
+	public void setQuestionUserName(String questionUserName) {
+		this.questionUserName = questionUserName;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
     
     

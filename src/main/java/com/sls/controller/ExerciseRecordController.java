@@ -22,22 +22,23 @@ public class ExerciseRecordController {
 	private ExerciseRecordService exerciseRecordService;
 	@Autowired
 	private ReturnDataInit returnDataInit;
+
 	
 	/**
 	 * 添加刷题记录
 	 * @param exerciseRecord
 	 * @return JSONObject
 	 * */
-	@RequestMapping(value = "/insertExerciseRecord", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertExerciseRecordByBatch", method = RequestMethod.POST)
 	@ResponseBody
-	public JSONObject insertExerciseRecord(@RequestBody ExerciseRecord exerciseRecord) {
+	public JSONObject insertExerciseRecordByBatch(@RequestBody List<ExerciseRecord> exerciseRecord) {
 		
 		JSONObject jsonObject = returnDataInit.initSetting();
 		
 		
-		int status = exerciseRecordService.insertExerciseRecord(exerciseRecord);
+		int status = exerciseRecordService.insertExerciseRecordByBatch(exerciseRecord);
  
-        if (status!=1) {
+        if (status<=0) {
 			jsonObject.put("code", 1);
 			jsonObject.put("msg", "error");
 		}

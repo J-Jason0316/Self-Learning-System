@@ -25,7 +25,7 @@ public class User {
         this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public String getUserName() {
+	public String getUserName() {
         return userName;
     }
 
@@ -40,4 +40,11 @@ public class User {
     public void setUserType(Integer userType) {
         this.userType = userType;
     }
+    
+
+    @Override
+	public String toString() {
+		return "User [userId=" + userId + ", userPassword=" + userPassword + ", userName=" + userName + ", userType="
+				+ userType + "]";
+	}
 }

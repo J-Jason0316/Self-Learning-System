@@ -19,4 +19,6 @@ public interface ExerciseRecordDao {
     
    /* ***********************************/
     List<ExerciseRecord> selectByRecordUserId(String recordUserId);
+    
+    int insertExerciseRecordByBatch(List<ExerciseRecord> exerciseRecord);
 }

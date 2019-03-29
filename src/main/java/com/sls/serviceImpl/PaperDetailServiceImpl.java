@@ -26,7 +26,7 @@ public class PaperDetailServiceImpl implements PaperDetailService{
 	 * */
 	public List<Question> getPaperDetailByPaperId(int paperId) {
 		
-		List<PaperDetail> paperDetail = paperDetailDao.selectAllPaperDetail();
+		List<PaperDetail> paperDetail = paperDetailDao.selectAllPaperDetailByPaperId(paperId);
 		List<Question> questionList = new ArrayList<Question>();
 		
 		for(PaperDetail pd : paperDetail){
@@ -35,5 +35,33 @@ public class PaperDetailServiceImpl implements PaperDetailService{
 			questionList.add(question);
 		}
 		return questionList;	
+	}
+	
+	/**
+	 * 批量插入PaperDetail(该试卷下的所有问题)
+	 * @param paperDetailList
+	 * @return int
+	 * */
+	public int insertPaperDetailByBatch(List<PaperDetail> paperDetailList) {	
+		return paperDetailDao.insertPaperDetailByBatch(paperDetailList);
+	}
+	
+	/**
+	 * 删除试卷及其detail
+	 * @param paperId
+	 * @return int
+	 * */
+	public int deletePaperDetailByPaperId(int paperId) {	
+		return paperDetailDao.deletePaperDetailByPaperId(paperId);
+	}
+	
+	/**
+	 * 删除试卷及其部分detail
+	 * @param int[] questionId
+	 * @return int
+	 * */
+	
+	public int deletePaperDetailByQuestionId(int[] questionId) {
+		return paperDetailDao.deletePaperDetailByQuestionId(questionId);
 	}
 }

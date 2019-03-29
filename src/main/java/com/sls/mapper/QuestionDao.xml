@@ -15,9 +15,11 @@
 		<result column="question_hard" jdbcType="INTEGER" property="questionHard" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		question_id, question_user_id, course_id, question_info, question_choice_a,
+		question_id, question_user_id, course_id, question_info,
+		question_choice_a,
 		question_choice_b,
-		question_choice_c, question_choice_d, question_answer, question_type, question_hard
+		question_choice_c,
+		question_choice_d, question_answer, question_type, question_hard
 	</sql>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
@@ -27,22 +29,28 @@
 		where question_id = #{questionId,jdbcType=INTEGER}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from table_question
+		delete from
+		table_question
 		where question_id = #{questionId,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.sls.vo.Question">
-		insert into table_question (question_id, question_user_id, course_id,
-		question_info, question_choice_a, question_choice_b,
-		question_choice_c, question_choice_d, question_answer,
+		insert into table_question
+		(question_id, question_user_id, course_id,
+		question_info,
+		question_choice_a, question_choice_b,
+		question_choice_c,
+		question_choice_d, question_answer,
 		question_type, question_hard)
-		values (#{questionId,jdbcType=INTEGER}, #{questionUserId,jdbcType=VARCHAR},
+		values (#{questionId,jdbcType=INTEGER},
+		#{questionUserId,jdbcType=VARCHAR},
 		#{courseId,jdbcType=INTEGER},
 		#{questionInfo,jdbcType=VARCHAR}, #{questionChoiceA,jdbcType=VARCHAR},
 		#{questionChoiceB,jdbcType=VARCHAR},
 		#{questionChoiceC,jdbcType=VARCHAR},
 		#{questionChoiceD,jdbcType=VARCHAR},
 		#{questionAnswer,jdbcType=VARCHAR},
-		#{questionType,jdbcType=INTEGER}, #{questionHard,jdbcType=INTEGER})
+		#{questionType,jdbcType=INTEGER},
+		#{questionHard,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective" parameterType="com.sls.vo.Question">
 		insert into table_question
@@ -154,26 +162,72 @@
 		where question_id = #{questionId,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.sls.vo.Question">
-		update table_question
-		set question_user_id = #{questionUserId,jdbcType=VARCHAR},
-		course_id = #{courseId,jdbcType=INTEGER},
-		question_info = #{questionInfo,jdbcType=VARCHAR},
-		question_choice_a = #{questionChoiceA,jdbcType=VARCHAR},
-		question_choice_b = #{questionChoiceB,jdbcType=VARCHAR},
-		question_choice_c = #{questionChoiceC,jdbcType=VARCHAR},
-		question_choice_d = #{questionChoiceD,jdbcType=VARCHAR},
-		question_answer = #{questionAnswer,jdbcType=VARCHAR},
-		question_type = #{questionType,jdbcType=INTEGER},
-		question_hard = #{questionHard,jdbcType=INTEGER}
-		where question_id = #{questionId,jdbcType=INTEGER}
+		update
+		table_question
+		set question_user_id =
+		#{questionUserId,jdbcType=VARCHAR},
+		course_id =
+		#{courseId,jdbcType=INTEGER},
+		question_info =
+		#{questionInfo,jdbcType=VARCHAR},
+		question_choice_a =
+		#{questionChoiceA,jdbcType=VARCHAR},
+		question_choice_b =
+		#{questionChoiceB,jdbcType=VARCHAR},
+		question_choice_c =
+		#{questionChoiceC,jdbcType=VARCHAR},
+		question_choice_d =
+		#{questionChoiceD,jdbcType=VARCHAR},
+		question_answer =
+		#{questionAnswer,jdbcType=VARCHAR},
+		question_type =
+		#{questionType,jdbcType=INTEGER},
+		question_hard =
+		#{questionHard,jdbcType=INTEGER}
+		where question_id =
+		#{questionId,jdbcType=INTEGER}
 	</update>
 
 	<!-- ************** 以下为作者自行添加的 sql查询语句 ******************************** -->
-	<select id="selectAllQuestion" 
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from table_question
+	
+	<resultMap id="customResultMap" type="com.sls.vo.Question">
+		<id column="question_id" jdbcType="INTEGER" property="questionId" />
+		<result column="question_user_id" jdbcType="VARCHAR" property="questionUserId" />
+		<result column="course_id" jdbcType="INTEGER" property="courseId" />
+		<result column="question_info" jdbcType="VARCHAR" property="questionInfo" />
+		<result column="question_choice_a" jdbcType="VARCHAR" property="questionChoiceA" />
+		<result column="question_choice_b" jdbcType="VARCHAR" property="questionChoiceB" />
+		<result column="question_choice_c" jdbcType="VARCHAR" property="questionChoiceC" />
+		<result column="question_choice_d" jdbcType="VARCHAR" property="questionChoiceD" />
+		<result column="question_answer" jdbcType="VARCHAR" property="questionAnswer" />
+		<result column="question_type" jdbcType="INTEGER" property="questionType" />
+		<result column="question_hard" jdbcType="INTEGER" property="questionHard" />
+		<result column="course_name" jdbcType="VARCHAR" property="courseName" />
+		<result column="user_name" jdbcType="VARCHAR" property="questionUserName" />
+	</resultMap>
+	
+	<select id="selectAllQuestion" resultMap="customResultMap">
+		SELECT
+		table_question.question_id,
+		table_question.question_user_id,
+		table_question.course_id,
+		table_question.question_info,
+		table_question.question_choice_a,
+		table_question.question_choice_b,
+		table_question.question_choice_c,
+		table_question.question_choice_d,
+		table_question.question_answer,
+		table_question.question_type,
+		table_question.question_hard,
+		table_course.course_name,
+		table_user.user_name
+		FROM
+		table_question,
+		table_course,
+		table_user
+		WHERE
+		table_question.course_id = table_course.course_id
+		AND table_question.question_user_id = table_user.user_id
 	</select>
 
 	<select id="selectByQuestionUserId" parameterType="java.lang.String"
@@ -181,7 +235,8 @@
 		select
 		<include refid="Base_Column_List" />
 		from table_question
-		where question_user_id = #{questionUserId,jdbcType=VARCHAR}
+		where question_user_id =
+		#{questionUserId,jdbcType=VARCHAR}
 	</select>
 
 	<select id="selectByQuestionCourseId" parameterType="java.lang.Integer"
@@ -197,7 +252,8 @@
 		select
 		<include refid="Base_Column_List" />
 		from table_question
-		where question_type = #{questionType,jdbcType=VARCHAR}
+		where question_type =
+		#{questionType,jdbcType=VARCHAR}
 	</select>
 
 	<select id="selectByQuestionHard" parameterType="java.lang.Integer"
@@ -205,28 +261,128 @@
 		select
 		<include refid="Base_Column_List" />
 		from table_question
-		where question_hard = #{questionHard,jdbcType=VARCHAR}
+		where question_hard =
+		#{questionHard,jdbcType=VARCHAR}
 	</select>
 
 	<select id="selectByOtherCondition" parameterType="com.sls.vo.Question"
-		resultMap="BaseResultMap">
+		resultMap="customResultMap">
 		select
-		<include refid="Base_Column_List" />
-		from table_question
+			table_question.question_id,
+			table_question.question_user_id,
+			table_question.course_id,
+			table_question.question_info,
+			table_question.question_choice_a,
+			table_question.question_choice_b,
+			table_question.question_choice_c,
+			table_question.question_choice_d,
+			table_question.question_answer,
+			table_question.question_type,
+			table_question.question_hard,
+			table_course.course_name,
+			table_user.user_name
+		from table_question,	
+			 table_course,
+			 table_user
 		<where>
 			<if test="questionUserId != null">
-				and question_user_id = #{questionUserId,jdbcType=VARCHAR}
+				and table_question.question_user_id = #{questionUserId,jdbcType=VARCHAR}
 			</if>
 			<if test="courseId != null">
-				and course_id = #{courseId,jdbcType=INTEGER}
+				and table_question.course_id = #{courseId,jdbcType=INTEGER}
 			</if>
 			<if test="questionType != null">
-				and question_type = #{questionType,jdbcType=INTEGER}
+				and table_question.question_type = #{questionType,jdbcType=INTEGER}
 			</if>
 			<if test="questionHard != null">
-				and question_hard = #{questionHard,jdbcType=INTEGER}
+				and table_question.question_hard = #{questionHard,jdbcType=INTEGER}
 			</if>
+				and table_question.course_id = table_course.course_id
+				and table_question.question_user_id = table_user.user_id
+			
 		</where>
+	</select>
+	
+	
+	<resultMap id="customResultMap2" type="com.sls.vo.Question">
+		<id column="question_id" jdbcType="INTEGER" property="questionId" />
+		<result column="question_user_id" jdbcType="VARCHAR" property="questionUserId" />
+		<result column="course_id" jdbcType="INTEGER" property="courseId" />
+		<result column="question_info" jdbcType="VARCHAR" property="questionInfo" />
+		<result column="question_choice_a" jdbcType="VARCHAR" property="questionChoiceA" />
+		<result column="question_choice_b" jdbcType="VARCHAR" property="questionChoiceB" />
+		<result column="question_choice_c" jdbcType="VARCHAR" property="questionChoiceC" />
+		<result column="question_choice_d" jdbcType="VARCHAR" property="questionChoiceD" />
+		<result column="question_type" jdbcType="INTEGER" property="questionType" />
+		<result column="question_hard" jdbcType="INTEGER" property="questionHard" />
+		<result column="course_name" jdbcType="VARCHAR" property="courseName" />
+		<result column="user_name" jdbcType="VARCHAR" property="questionUserName" />
+	</resultMap>
+	<select id="selectByOtherCondition2" parameterType="com.sls.vo.Question"
+		resultMap="customResultMap2">
+		select
+			table_question.question_id,
+			table_question.question_user_id,
+			table_question.course_id,
+			table_question.question_info,
+			table_question.question_choice_a,
+			table_question.question_choice_b,
+			table_question.question_choice_c,
+			table_question.question_choice_d,
+			table_question.question_answer,
+			table_question.question_type,
+			table_question.question_hard,
+			table_course.course_name,
+			table_user.user_name
+		from table_question,	
+			 table_course,
+			 table_user
+		<where>
+			<if test="questionUserId != null">
+				and table_question.question_user_id = #{questionUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="courseId != null">
+				and table_question.course_id = #{courseId,jdbcType=INTEGER}
+			</if>
+			<if test="questionType != null">
+				and table_question.question_type = #{questionType,jdbcType=INTEGER}
+			</if>
+			<if test="questionHard != null">
+				and table_question.question_hard &lt;= #{questionHard,jdbcType=INTEGER}	
+			</if>
+				and table_question.course_id = table_course.course_id
+				and table_question.question_user_id = table_user.user_id
+			
+		</where>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteQuestionByBatch" parameterType="int[]">
+		<!-- delete from emp where empno in(7789,7790) -->
+		<!-- forEach : 用来循环 collection : 用来指定循环的数据的类型 可以填的值有：array,list,map item 
+			: 循环中为每个循环的数据指定一个别名 index : 循环中循环的下标 open : 开始 close : 结束 separator : 数组中元素之间的分隔符 -->
+		delete from table_question where question_id in
+		<foreach collection="array" item="arr" index="no" open="("
+			separator="," close=")">
+			#{arr}
+		</foreach>
+	</delete>
+	
+	
+	<select id="getAllUnchoiceQuestion" parameterType="java.lang.Integer"
+	resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		table_question
+		WHERE
+		table_question.question_id not in
+		(SELECT
+		table_paper_detail.question_id
+		FROM
+		table_paper_detail
+		WHERE
+		table_paper_detail.paper_id=#{paperId})
 	</select>
 
 

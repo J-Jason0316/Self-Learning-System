@@ -37,4 +37,10 @@
       </if>
     </trim>
   </insert>
+  
+  
+  <delete id="deleteAllAnswerDetailByAnswerId" parameterType="java.lang.Integer">
+	  DELETE FROM `sls`.`table_answer_detail` 
+	  WHERE `answer_id` = #{answerId} 
+  </delete>
 </mapper>

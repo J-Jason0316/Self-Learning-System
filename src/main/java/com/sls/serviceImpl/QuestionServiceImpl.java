@@ -79,6 +79,23 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 	
 	/**
+	 * 多条件获取question
+	 * @param question
+	 * @return List
+	 * */
+	public List<Question> getQuestionByOtherCondition2(Question question) {
+		return  questionDao.selectByOtherCondition2(question);
+	}
+	/**
+	  * 根据paperId获取生育未选择的question
+	  * @param paperId
+	  * @return List
+	  * */
+	public List<Question> getAllUnchoiceQuestion(int paperId) {
+		return  questionDao.getAllUnchoiceQuestion(paperId);
+	}
+	
+	/**
 	 * 添加question
 	 * @param question
 	 * @return int
@@ -96,8 +113,21 @@ public class QuestionServiceImpl implements QuestionService{
 		return  questionDao.updateByPrimaryKeySelective(question);
 	}
 	
-	
+	/**
+	 * 根据questionId删除question
+	 * @param questionId
+	 * @return int
+	 * */
 	public int deleteQuestion(int questionId) {
 		return  questionDao.deleteByPrimaryKey(questionId);
 	}
+	
+	/**
+	 * 批量删除question
+	 * @param questionId
+	 * @return int
+	 * */
+	 public int deleteQuestionByBatch(int[] questionId) {
+		 return questionDao.deleteQuestionByBatch(questionId);
+	 }
 }

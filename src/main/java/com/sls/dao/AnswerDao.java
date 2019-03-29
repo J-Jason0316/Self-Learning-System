@@ -22,4 +22,10 @@ public interface AnswerDao {
     List<Answer> selectByAnswerUserId(String answerUserId);
     
     int insertAnswerDetail(List<AnswerDetail> answerDetailList);
+    
+    int getScore(int answerId);
+    
+    int insertScore(Answer answerScore);
+    
+    String isHaveAnswer(Answer answer);
 }

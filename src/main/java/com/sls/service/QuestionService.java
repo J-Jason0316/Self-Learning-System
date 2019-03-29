@@ -58,6 +58,20 @@ public interface QuestionService {
 	 * */
 	 List<Question>	getQuestionByOtherCondition(Question question);
 	 
+	 /**
+	  * 多条件获取question(questionType判断条件为<=)
+	  * @param question Question
+	  * @return List
+	  * */
+	 List<Question>	getQuestionByOtherCondition2(Question question);
+	 
+	 /**
+	  * 根据paperId获取生育未选择的question
+	  * @param paperId
+	  * @return List
+	  * */
+	 List<Question> getAllUnchoiceQuestion(int paperId);
+	 
 	 /******************************************************************
 	  * 							题目添加                                                 *
 	  *****************************************************************/
@@ -76,10 +90,17 @@ public interface QuestionService {
 	 int updateQuestion(Question question);
 	 
 	 /**
-	  * 更新question
-	  * @param question
+	  * 根据questionId删除question
+	  * @param questionId
 	  * @return int
 	  * */
 	 int deleteQuestion(int questionId);
 	 
+	 
+	 /**
+	  * 批量删除question
+	  * @param questionId
+	  * @return int
+	  * */
+	 int deleteQuestionByBatch(int[] questionId);
 }

@@ -8,17 +8,13 @@ public class Answer {
     private String answerUserId;
 
     private Integer paperId;
+    
+    private String paperName;
 
     private String answerScore;
     
     private List<AnswerDetail> answerDetail;
     
-
-    @Override
-	public String toString() {
-		return "Answer [answerId=" + answerId + ", answerUserId=" + answerUserId + ", paperId=" + paperId
-				+ ", answerScore=" + answerScore + ", answerDetail=" + answerDetail + "]";
-	}
 
 	public List<AnswerDetail> getAnswerDetail() {
 		return answerDetail;
@@ -59,4 +55,12 @@ public class Answer {
     public void setAnswerScore(String answerScore) {
         this.answerScore = answerScore == null ? null : answerScore.trim();
     }
+
+	public String getPaperName() {
+		return paperName;
+	}
+
+	public void setPaperName(String paperName) {
+		this.paperName = paperName;
+	}
 }

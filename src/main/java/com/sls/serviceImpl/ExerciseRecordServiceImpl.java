@@ -19,8 +19,8 @@ public class ExerciseRecordServiceImpl implements ExerciseRecordService{
 	 * @param exerciseRecord
 	 * @return int
 	 * */
-	public int insertExerciseRecord(ExerciseRecord exerciseRecord) {
-		return exerciseRecordDao.insertSelective(exerciseRecord);
+	public int insertExerciseRecordByBatch(List<ExerciseRecord> exerciseRecord) {
+		return exerciseRecordDao.insertExerciseRecordByBatch(exerciseRecord);
 	}
 	
 	/**

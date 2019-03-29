@@ -11,6 +11,10 @@ public class ExerciseRecord {
     private String recordUserId;
 
     private Integer questionId;
+    
+    private String questionInfo;
+    
+    private String questionAnswer;
 
     private String recordAnswer;
 
@@ -65,4 +69,20 @@ public class ExerciseRecord {
     public void setRecordTime(Date recordTime) {
         this.recordTime = recordTime;
     }
+
+	public String getQuestionInfo() {
+		return questionInfo;
+	}
+
+	public void setQuestionInfo(String questionInfo) {
+		this.questionInfo = questionInfo;
+	}
+
+	public String getQuestionAnswer() {
+		return questionAnswer;
+	}
+
+	public void setQuestionAnswer(String questionAnswer) {
+		this.questionAnswer = questionAnswer;
+	}
 }

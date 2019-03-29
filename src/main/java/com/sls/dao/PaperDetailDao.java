@@ -11,4 +11,12 @@ public interface PaperDetailDao {
     int insertSelective(PaperDetail record);
     
     List<PaperDetail> selectAllPaperDetail();
+    
+    List<PaperDetail> selectAllPaperDetailByPaperId(int paperId);
+    
+    int insertPaperDetailByBatch(List<PaperDetail> paperDetailList);
+    //删除该试卷和其试卷详情
+    int deletePaperDetailByPaperId(int paperId);
+    
+    int deletePaperDetailByQuestionId(int[] questionId);
 }

@@ -1,6 +1,7 @@
 package com.sls.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,11 +36,13 @@ public class AnswerController {
 		JSONObject jsonObject = returnDataInit.initSetting();
 		
 		
-		int status = answerService.insertAnswer(answer);
+		Map<String,Integer> result = answerService.insertAnswer(answer);
  
-        if (status!=1) {
+        if (result.get("insertScorestatus")!=1&&result.get("insertAnswerDetailStatus")!=1) {
 			jsonObject.put("code", 1);
 			jsonObject.put("msg", "error");
+		} else {
+			jsonObject.put("score",result.get("score"));
 		}
         return jsonObject;		
 	}

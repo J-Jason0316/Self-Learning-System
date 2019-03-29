@@ -22,6 +22,7 @@ public class QuestionController {
 	@Autowired
 	private	ReturnDataInit returnDataInit;
 	
+	
 	/**
 	 * 获取所有question
 	 * @param 
@@ -178,6 +179,51 @@ public class QuestionController {
 	}
 	
 	/**
+	 * 多条件获取question(questionType判断条件为<=)
+	 * @param question Question
+	 * @return List
+	 * */
+	@RequestMapping(value = "/getQuestionByOtherCondition2", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject getQuestionByOtherCondition2(@RequestBody Question question) {
+		
+		JSONObject jsonObject = returnDataInit.initSetting();        
+        
+        List<Question> questionList = questionService.getQuestionByOtherCondition2(question);
+        
+        if (questionList.size() != 0) {
+        	jsonObject.put("data", questionList);  	
+		} else {
+			jsonObject.put("code", 1);
+			jsonObject.put("msg", "error");
+		}
+        return jsonObject;
+	}
+	
+	
+	/**
+	  * 根据paperId获取所有未选择的question
+	  * @param paperId
+	  * @return List
+	  * */
+	@RequestMapping(value = "/getAllUnchoiceQuestion", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject getAllUnchoiceQuestion(int paperId) {
+		
+		JSONObject jsonObject = returnDataInit.initSetting();        
+        
+        List<Question> questionList = questionService.getAllUnchoiceQuestion(paperId);
+        
+        if (questionList.size() != 0) {
+        	jsonObject.put("data", questionList);  	
+		} else {
+			jsonObject.put("code", 1);
+			jsonObject.put("msg", "error");
+		}
+        return jsonObject;
+	}
+	
+	/**
 	 * 添加question
 	 * @param question Question
 	 * @return int
@@ -185,7 +231,7 @@ public class QuestionController {
 	@RequestMapping(value = "/insertQuestion", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject insertQuestion(@RequestBody Question question) {
-		
+		System.out.println(question);
 		JSONObject jsonObject = returnDataInit.initSetting();       
         
         int status = questionService.insertQuestion(question);
@@ -231,6 +277,26 @@ public class QuestionController {
         int status = questionService.deleteQuestion(questionId);
         
         if (status!=1) {
+			jsonObject.put("code", 1);
+			jsonObject.put("msg", "error");
+		}
+        return jsonObject;
+	}
+	
+	/**
+	 * 批量删除question
+	 * @param questionId
+	 * @return JSONObject
+	 * */
+	@RequestMapping(value = "/deleteQuestionByBatch", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject deleteQuestionByBatch (@RequestBody int[] questionId) {
+		
+		JSONObject jsonObject = returnDataInit.initSetting();       
+        
+        int status = questionService.deleteQuestionByBatch(questionId);
+        
+        if (status<=0) {
 			jsonObject.put("code", 1);
 			jsonObject.put("msg", "error");
 		}

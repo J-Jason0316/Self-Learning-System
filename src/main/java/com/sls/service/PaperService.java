@@ -23,6 +23,12 @@ public interface PaperService {
 	 * */
 	
 	 int deletePaper(int paperId);
+	 /**
+	 * 批量删除paper
+	 * @param paperId
+	 * @return int
+	 * */
+	int deletePaper(int[] paperId);
 	 
 	 /**
 	 * 修改paper

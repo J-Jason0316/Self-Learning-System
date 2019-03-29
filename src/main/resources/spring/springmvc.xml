@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/mvc 
-						http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+						http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 						http://www.springframework.org/schema/context 
 						http://www.springframework.org/schema/context/spring-context.xsd">
 
 
 
-
+	<!-- 接口跨域配置 -->  
+	<mvc:cors>  
+		<mvc:mapping path="/**"  
+		allowed-origins="*"  
+		allowed-methods="POST, GET, OPTIONS, DELETE, PUT"  
+		allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"  
+		allow-credentials="true" />  
+	</mvc:cors>
 	<!-- 配置推荐使用注解驱动，会默认的加载上面的两个 HandlerMapping, HandlerAdapter -->
 	<mvc:annotation-driven />
 	<!-- 开启springmvc注解扫描 -->
@@ -21,13 +29,11 @@
 	<!-- <bean name="excelView" class="cn.usermanage.view.UserExcelView"></bean> -->
 
 	<!-- 视图解析器 -->
-	<!-- <bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-		<!-- 前缀,这里是请求的路径文件 -->
-		<!-- <property name="prefix" value="/WEB-INF/views/"></property>		 -->
-		<!-- 后缀 ，支持.jsp的请求 -->
-		<!-- <property name="suffix" value=".jsp"></property>	
-	</bean> -->
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+	<!-- 前缀,这里是请求的路径文件 -->
+	<!-- <property name="prefix" value="/WEB-INF/views/"></property> -->
+	<!-- 后缀 ，支持.jsp的请求 -->
+	<!-- <property name="suffix" value=".jsp"></property> </bean> -->
 	<!-- 以上是原生态的ssm配置 -->
 
 	<!-- 配置第二个视图解析器 -->
@@ -41,11 +47,11 @@
 		<property name="maxUploadSize" value="5242880"></property> </bean> -->
 
 	<!-- 解决静态资源被拦截的问题 -->
-	<mvc:default-servlet-handler/>
+	<mvc:default-servlet-handler />
 	<!-- 启用默认配置 -->
 	<!-- 配置Fastjson支持 -->
-	 <mvc:annotation-driven>
-		 <mvc:message-converters register-defaults="true">		
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
 			<bean
 				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
 				<property name="supportedMediaTypes">
@@ -62,25 +68,26 @@
 					</list>
 				</property>
 			</bean>
-		</mvc:message-converters> 
+		</mvc:message-converters>
 	</mvc:annotation-driven>
-	
-	<!-- 设置返回json的编码格式   jackson -->
-  	 <!--  <bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
-	     <property name="supportedMediaTypes">
-	         <list>
-	             <value>application/json;charset=UTF-8</value>
-	         </list>
-	     </property>
-	 </bean>
-	 <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
-	 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	     <property name="messageConverters">
-	         <list>
-	             <ref bean="stringConverter" />
-	             <ref bean="jsonConverter" />
-	         </list>
-	     </property>
-	 </bean> -->
+
+	<!-- 设置返回json的编码格式 jackson -->
+	<!-- <bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter"> 
+			<property name="supportedMediaTypes"> 
+				<list> 
+					<value>application/json;charset=UTF-8</value> 
+				</list> 
+			</property> 
+		</bean> 
+			<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean> 
+			<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
+				<property name="messageConverters"> 
+					<list>
+						<ref bean="stringConverter" /> 
+						<ref bean="jsonConverter" /> 
+					</list> 
+				</property> 
+		</bean> -->
+
 
 </beans>

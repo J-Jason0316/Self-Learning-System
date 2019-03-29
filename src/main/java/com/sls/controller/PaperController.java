@@ -67,6 +67,26 @@ public class PaperController {
 	}
 	
 	/**
+	 * 批量删除paper
+	 * @param paperId
+	 * @return int
+	 * */
+	@RequestMapping(value = "/deletePaperByBatch", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject deletePaper (@RequestBody int[] paperId) {
+		
+		JSONObject jsonObject = returnDataInit.initSetting();       
+        
+        int status = paperService.deletePaper(paperId);
+        
+        if (status<=0) {
+			jsonObject.put("code", 1);
+			jsonObject.put("msg", "error");
+		}
+        return jsonObject;
+	}
+	
+	/**
 	 * 修改Paper
 	 * @param paper
 	 * @return JSONObject

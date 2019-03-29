@@ -30,8 +30,44 @@
   </insert>
   
   <!-- ****************************************** -->
-  <select id="selectAllPaperDetail" 
+    <select id="selectAllPaperDetail" 
 		resultMap="BaseResultMap">
 		select * from table_paper_detail
 	</select>
+	
+	<select id="selectAllPaperDetailByPaperId" 
+		resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select * from table_paper_detail
+		where paper_id = #{paperId}	
+	</select>
+	
+	<!-- 批量插入paperdetail -->
+	<insert id="insertPaperDetailByBatch" parameterType="java.util.List">
+		INSERT INTO table_paper_detail
+		(paper_id,question_id)
+		VALUES
+		<foreach collection="list" item="paperDetail" index="index"
+			separator=",">
+			(
+			#{paperDetail.paperId},
+			#{paperDetail.questionId}
+			)
+		</foreach>
+	</insert>
+	
+	<!-- 批量该试卷的所有detail -->
+	<delete id="deletePaperDetailByPaperId" parameterType="java.lang.Integer">
+		delete from table_paper_detail where paper_id =#{paperId}
+	</delete>
+	
+	<delete id="deletePaperDetailByQuestionId" parameterType="int[]">
+		<!-- delete from emp where empno in(7789,7790) -->
+		<!-- forEach : 用来循环 collection : 用来指定循环的数据的类型 可以填的值有：array,list,map item 
+			: 循环中为每个循环的数据指定一个别名 index : 循环中循环的下标 open : 开始 close : 结束 separator : 数组中元素之间的分隔符 -->
+		delete from table_paper_detail where question_id in
+		<foreach collection="array" item="arr" index="no" open="("
+			separator="," close=")">
+			#{arr}
+		</foreach>
+	</delete>
 </mapper>

@@ -1,113 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sls.dao.ExerciseRecordDao">
-  <resultMap id="BaseResultMap" type="com.sls.vo.ExerciseRecord">
-    <id column="record_id" jdbcType="INTEGER" property="recordId" />
-    <result column="record_user_id" jdbcType="VARCHAR" property="recordUserId" />
-    <result column="question_id" jdbcType="INTEGER" property="questionId" />
-    <result column="record_answer" jdbcType="VARCHAR" property="recordAnswer" />
-    <result column="record_type" jdbcType="INTEGER" property="recordType" />
-    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    record_id, record_user_id, question_id, record_answer, record_type, record_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from table_exercise_record
-    where record_id = #{recordId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from table_exercise_record
-    where record_id = #{recordId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.sls.vo.ExerciseRecord">
-    insert into table_exercise_record (record_id, record_user_id, question_id, 
-      record_answer, record_type, record_time
-      )
-    values (#{recordId,jdbcType=INTEGER}, #{recordUserId,jdbcType=VARCHAR}, #{questionId,jdbcType=INTEGER}, 
-      #{recordAnswer,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.sls.vo.ExerciseRecord">
-    insert into table_exercise_record
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        record_id,
-      </if>
-      <if test="recordUserId != null">
-        record_user_id,
-      </if>
-      <if test="questionId != null">
-        question_id,
-      </if>
-      <if test="recordAnswer != null">
-        record_answer,
-      </if>
-      <if test="recordType != null">
-        record_type,
-      </if>
-      <if test="recordTime != null">
-        record_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        #{recordId,jdbcType=INTEGER},
-      </if>
-      <if test="recordUserId != null">
-        #{recordUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="questionId != null">
-        #{questionId,jdbcType=INTEGER},
-      </if>
-      <if test="recordAnswer != null">
-        #{recordAnswer,jdbcType=VARCHAR},
-      </if>
-      <if test="recordType != null">
-        #{recordType,jdbcType=INTEGER},
-      </if>
-      <if test="recordTime != null">
-        #{recordTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sls.vo.ExerciseRecord">
-    update table_exercise_record
-    <set>
-      <if test="recordUserId != null">
-        record_user_id = #{recordUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="questionId != null">
-        question_id = #{questionId,jdbcType=INTEGER},
-      </if>
-      <if test="recordAnswer != null">
-        record_answer = #{recordAnswer,jdbcType=VARCHAR},
-      </if>
-      <if test="recordType != null">
-        record_type = #{recordType,jdbcType=INTEGER},
-      </if>
-      <if test="recordTime != null">
-        record_time = #{recordTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where record_id = #{recordId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.sls.vo.ExerciseRecord">
-    update table_exercise_record
-    set record_user_id = #{recordUserId,jdbcType=VARCHAR},
-      question_id = #{questionId,jdbcType=INTEGER},
-      record_answer = #{recordAnswer,jdbcType=VARCHAR},
-      record_type = #{recordType,jdbcType=INTEGER},
-      record_time = #{recordTime,jdbcType=TIMESTAMP}
-    where record_id = #{recordId,jdbcType=INTEGER}
-  </update>
-  
-  <select id="selectByRecordUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from table_exercise_record
-    where record_user_id = #{RecordUserId,jdbcType=VARCHAR}
-  </select>
+	<resultMap id="BaseResultMap" type="com.sls.vo.ExerciseRecord">
+		<id column="record_id" jdbcType="INTEGER" property="recordId" />
+		<result column="record_user_id" jdbcType="VARCHAR" property="recordUserId" />
+		<result column="question_id" jdbcType="INTEGER" property="questionId" />
+		<result column="record_answer" jdbcType="VARCHAR" property="recordAnswer" />
+		<result column="record_type" jdbcType="INTEGER" property="recordType" />
+		<result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		record_id, record_user_id, question_id, record_answer, record_type, record_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from table_exercise_record
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from table_exercise_record
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.sls.vo.ExerciseRecord">
+		insert into table_exercise_record (record_id, record_user_id, question_id,
+		record_answer, record_type, record_time
+		)
+		values (#{recordId,jdbcType=INTEGER}, #{recordUserId,jdbcType=VARCHAR},
+		#{questionId,jdbcType=INTEGER},
+		#{recordAnswer,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sls.vo.ExerciseRecord">
+		insert into table_exercise_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="recordId != null">
+				record_id,
+			</if>
+			<if test="recordUserId != null">
+				record_user_id,
+			</if>
+			<if test="questionId != null">
+				question_id,
+			</if>
+			<if test="recordAnswer != null">
+				record_answer,
+			</if>
+			<if test="recordType != null">
+				record_type,
+			</if>
+			<if test="recordTime != null">
+				record_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="recordId != null">
+				#{recordId,jdbcType=INTEGER},
+			</if>
+			<if test="recordUserId != null">
+				#{recordUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="questionId != null">
+				#{questionId,jdbcType=INTEGER},
+			</if>
+			<if test="recordAnswer != null">
+				#{recordAnswer,jdbcType=VARCHAR},
+			</if>
+			<if test="recordType != null">
+				#{recordType,jdbcType=INTEGER},
+			</if>
+			<if test="recordTime != null">
+				#{recordTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sls.vo.ExerciseRecord">
+		update table_exercise_record
+		<set>
+			<if test="recordUserId != null">
+				record_user_id = #{recordUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="questionId != null">
+				question_id = #{questionId,jdbcType=INTEGER},
+			</if>
+			<if test="recordAnswer != null">
+				record_answer = #{recordAnswer,jdbcType=VARCHAR},
+			</if>
+			<if test="recordType != null">
+				record_type = #{recordType,jdbcType=INTEGER},
+			</if>
+			<if test="recordTime != null">
+				record_time = #{recordTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sls.vo.ExerciseRecord">
+		update table_exercise_record
+		set record_user_id = #{recordUserId,jdbcType=VARCHAR},
+		question_id = #{questionId,jdbcType=INTEGER},
+		record_answer = #{recordAnswer,jdbcType=VARCHAR},
+		record_type = #{recordType,jdbcType=INTEGER},
+		record_time = #{recordTime,jdbcType=TIMESTAMP}
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</update>
+
+<!-- ******************************************************* -->
+		<resultMap id="customResultMap" type="com.sls.vo.ExerciseRecord">
+		<id column="record_id" jdbcType="INTEGER" property="recordId" />
+		<result column="record_user_id" jdbcType="VARCHAR" property="recordUserId" />
+		<result column="question_id" jdbcType="INTEGER" property="questionId" />
+		<result column="question_info" jdbcType="VARCHAR" property="questionInfo" />
+		<result column="question_answer" jdbcType="VARCHAR" property="questionAnswer" />
+		<result column="record_answer" jdbcType="VARCHAR" property="recordAnswer" />
+		<result column="record_type" jdbcType="INTEGER" property="recordType" />
+		<result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+	</resultMap>
+	<select id="selectByRecordUserId" parameterType="java.lang.String"
+		resultMap="customResultMap">
+		SELECT
+			table_exercise_record.record_id,
+			table_exercise_record.record_user_id,
+			table_exercise_record.question_id,
+			table_exercise_record.record_answer,
+			table_exercise_record.record_type,
+			table_exercise_record.record_time,
+			table_question.question_info,
+			table_question.question_answer
+		FROM
+			table_exercise_record ,
+			table_question
+		WHERE 
+			table_exercise_record.question_id = table_question.question_id
+			AND record_user_id = #{RecordUserId,jdbcType=VARCHAR}
+		ORDER BY
+			table_exercise_record.record_id DESC
+	</select>
+	
+	<insert id="insertExerciseRecordByBatch" parameterType="java.util.List">
+		INSERT INTO table_exercise_record
+		
+
+		(record_user_id,question_id,record_answer,record_type,record_time)
+		VALUES
+		<foreach collection="list" item="exerciseRecord" index="index"
+			separator=",">
+			(
+			#{exerciseRecord.recordUserId},
+			#{exerciseRecord.questionId},
+			#{exerciseRecord.recordAnswer},
+			#{exerciseRecord.recordType},
+			#{exerciseRecord.recordTime}
+			)
+		</foreach>
+	</insert>
 </mapper>

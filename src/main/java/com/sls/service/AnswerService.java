@@ -1,6 +1,7 @@
 package com.sls.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sls.vo.Answer;
 
@@ -11,7 +12,7 @@ public interface AnswerService {
 	 * @param answer
 	 * @return int
 	 * */
-	int insertAnswer(Answer answer);
+	Map<String,Integer> insertAnswer(Answer answer);
 	
 	/**
 	 * 修改答卷

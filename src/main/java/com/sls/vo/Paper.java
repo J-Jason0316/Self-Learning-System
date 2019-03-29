@@ -13,6 +13,10 @@ public class Paper {
 
     private String paperName;
     
+    private String courseName;
+    
+    private String paperUserName;
+    
     private List<PaperDetail> paperDetail;
     
     private List<Question> question;
@@ -71,5 +75,21 @@ public class Paper {
 
 	public void setQuestion(List<Question> question) {
 		this.question = question;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	public String getPaperUserName() {
+		return paperUserName;
+	}
+
+	public void setPaperUserName(String paperUserName) {
+		this.paperUserName = paperUserName;
 	}
 }

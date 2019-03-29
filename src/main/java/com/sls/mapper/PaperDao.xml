@@ -101,32 +101,80 @@
 		where paper_id =
 		#{paperId,jdbcType=INTEGER}
 	</update>
+<!-- ******************************************************* -->
+	<!-- 批量删除 -->
+	<delete id="deleteByBatch" parameterType="int[]">
+		<!-- delete from emp where empno in(7789,7790) -->
+		<!-- forEach : 用来循环 collection : 用来指定循环的数据的类型 可以填的值有：array,list,map item 
+			: 循环中为每个循环的数据指定一个别名 index : 循环中循环的下标 open : 开始 close : 结束 separator : 数组中元素之间的分隔符 -->
+		delete from table_paper where paper_id in
+		<foreach collection="array" item="arr" index="no" open="("
+			separator="," close=")">
+			#{arr}
+		</foreach>
+	</delete>
 
+	<resultMap id="paperResultMap" type="com.sls.vo.Paper">
+		<id column="paper_id" jdbcType="INTEGER" property="paperId" />
+		<result column="paper_user_id" jdbcType="VARCHAR" property="paperUserId" />
+		<result column="course_id" jdbcType="INTEGER" property="courseId" />
+		<result column="paper_time" jdbcType="VARCHAR" property="paperTime" />
+		<result column="paper_name" jdbcType="VARCHAR" property="paperName" />
+		<result column="course_name" jdbcType="VARCHAR" property="courseName" />
+		<result column="user_name" jdbcType="VARCHAR" property="paperUserName" />
+	</resultMap>
+	
 	<select id="selectByOtherCondition" parameterType="com.sls.vo.Paper"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from table_paper
+		resultMap="paperResultMap">
+		SELECT
+			table_paper.paper_id,
+			table_paper.paper_user_id,
+			table_paper.course_id,
+			table_paper.paper_time,
+			table_paper.paper_name,
+			table_course.course_name,
+			table_user.user_name
+		FROM
+			table_paper ,
+			table_course ,
+			table_user		
 		<where>
 			<if test="paperUserId != null">
-				and paper_user_id = #{paperUserId,jdbcType=VARCHAR}
+				and table_paper.paper_user_id = #{paperUserId,jdbcType=VARCHAR}
 			</if>
 			<if test="courseId != null">
-				and course_id = #{courseId,jdbcType=INTEGER}
+				and table_paper.course_id = #{courseId,jdbcType=INTEGER}
 			</if>
 			<if test="paperTime != null">
-				and paper_time = #{paperTime,jdbcType=VARCHAR}
+				and table_paper.paper_time = #{paperTime,jdbcType=VARCHAR}
 			</if>
 			<if test="paperName != null">
-				and paper_name = #{paperName,jdbcType=VARCHAR}
+				and table_paper.paper_name = #{paperName,jdbcType=VARCHAR}
 			</if>
+			AND
+			table_paper.course_id = table_course.course_id 
+			AND
+			table_paper.paper_user_id = table_user.user_id
 		</where>
 	</select>
 
-	<select id="selectAllPaper" resultMap="BaseResultMap">
+	<select id="selectAllPaper" resultMap="paperResultMap">
 		select
-		<include refid="Base_Column_List" />
-		from table_paper
+			table_paper.paper_id,
+			table_paper.paper_user_id,
+			table_paper.course_id,
+			table_paper.paper_time,
+			table_paper.paper_name,
+			table_course.course_name,
+			table_user.user_name
+		from 
+			table_paper ,
+			table_course ,
+			table_user
+		where
+			table_paper.course_id = table_course.course_id 
+			AND
+			table_paper.paper_user_id = table_user.user_id
 	</select>
 
 	<!-- 返回某一张paper以及对应的Question -->
